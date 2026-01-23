@@ -10,6 +10,9 @@ library(scales)
 library(rlang) 
 
 #reads in dataset
+#This data was originally gathered by web-scraping the public industry tracking website vgchartz.com. 
+#The specific, clean file for this project is sourced from the [Maven Analytics Data Playground]
+#(https://mavenanalytics.io/data-playground/video-game-sales).
 data = read.csv("vgchartz-2024.csv")
 
 #Removes img column(its just a jpg or png) and games with less that 100,000 sales
