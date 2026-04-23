@@ -7,7 +7,8 @@ library(shiny)
 library(tidyverse)
 library(ggplot2)
 library(scales)
-library(rlang) 
+library(rlang)
+library(bslib)
 
 #reads in dataset
 #This data was originally gathered by web-scraping the public industry tracking website vgchartz.com. 
@@ -56,9 +57,11 @@ Var_Choices = list(
 
 # Define UI
 ui = fluidPage(
+  # Changes font
+  theme = bs_theme(base_font = font_google("Ubuntu")),
   
   # Application title
-  titlePanel("Video Game Sales Data"),
+  titlePanel("Video Game Sales Data Explorer"),
   
   # Sidebar 
   sidebarLayout(
@@ -98,7 +101,7 @@ ui = fluidPage(
         condition = "input.graph_type == 'Univariate'",
         selectInput("var1", label = h3("Choose a Variable"), 
                     choices=list("Console"="console", "Critic Score"="critic score", "Genre"="genre", "Total Sales (Millions)"="total sales"), 
-                    selected = "console"),
+                    selected = "console")
       ),
       
       # Select box for variable if multivariate:
@@ -121,26 +124,15 @@ ui = fluidPage(
                   selected = 'red'),
       
       #option to show statistics
-      checkboxInput("checkbox1", label="Display Statistics", value=FALSE),
-      
-      # add image
-      hr(), 
-      div(style = "text-align: center;", 
-          img(
-            src = "consoles.jpg", 
-            height = 200,
-            width = 350,
-            style = "margin-top: 15px;"
-          )
-      ),
-      p("Safestore Self Storage. (2017, June 19). https://www.safestore.co.uk/blog/how-much-are-your-old-video-games-worth/")
+      checkboxInput("checkbox1", label="Display Statistics", value=FALSE)
     ),
+
     
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("distPlot"),
       hr(),
-      verbatimTextOutput("statsOutput"),
+      verbatimTextOutput("statsOutput")
     )
   )
 )
